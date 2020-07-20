@@ -87,16 +87,22 @@ function moveCheck(){
           count++;
         }
         if(i-count>=0){
-          tmp = spaces[(i-count)*8+j].children[0].getAttribute("src")
+          tmps = spaces[(i-count)*8+j].children[0].getAttribute("src")
           tmp2 = spaces[i*8+j].children[0].getAttribute("src")
           spaces[(i-count)*8+j].children[0].setAttribute("src",tmp2)
-          spaces[i*8+j].children[0].setAttribute("src",tmp)
+          spaces[i*8+j].children[0].setAttribute("src",tmps)
         }
 
         console.log(i*8+j)
       }
     }
   }
+  for(i=0;i<64;i++){
+    if(spaces[i].children[0].getAttribute("src")=="blank.jpg"){
+      spaces[i].children[0].setAttribute("src",names[Math.floor(Math.random()*6)])
+    }
+  }
+
   toDelete=[];
 }
 
