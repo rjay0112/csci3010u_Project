@@ -8,6 +8,11 @@ div {
   width:560px
 }
 
+td,h1, label {
+  color: #FFFFFF;
+  background: #000000;
+}
+
 input {
   font-size: 1.5em;
   width: 10vh;
@@ -31,5 +36,10 @@ img {
 }
 #game button {
   font-size: 1.2em;
-  color: black;
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+body{
+  background-color: #000000;
 }

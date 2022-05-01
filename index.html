@@ -2,23 +2,16 @@
 <html lang = "en">
 <head>
   <!-- basic.html -->
-  <title>basic.html</title>
+  <title>homepage.html</title>
   <meta charset = "UTF-8" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="code.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css"></link>
+  <link rel="stylesheet" type="text/css" href="homestyle.css"></link>
 </head>
 <body oncontextmenu = "return false;">
-  <h1 id= "Title">Basic Game</h1>
-  <label for="width">Width:</label>
-  <input type="number" id="width" name = "Width" step="1", value=10>
-  <label for="height">Height:</label>
-  <input type="number" id="height" name = "height" step="1" value=10>
-  <button type="button" id="start" onclick="createBoard()">
-    Start Game
+  <h1>Site Directory</h1>
+  <button id="picross" onclick="document.location='picross.html'">
+    Picross
   </button>
-  <table id="game">
-  </table>
-<div id="stats"></div>
 </body>
 </html>

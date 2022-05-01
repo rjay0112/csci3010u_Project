@@ -40,15 +40,15 @@ function createBoard(){
   }
 
   document.getElementById("game").appendChild(headerRow)
-  for (var i=0;i<boardW;i++){
+  for (var i=0;i<boardH;i++){
     var curRow = document.createElement("tr")
     vLabels[i] = document.createElement("td")
     vLabels[i].innerHTML = i
     vLabels[i].style.width=(boardW/1.1)+"vh"
     vLabels[i].style.textAlign="right"
     curRow.appendChild(vLabels[i])
-    spaces[i]=new Array(boardH)
-    for (var j=0;j<boardH;j++){
+    spaces[i]=new Array(boardW)
+    for (var j=0;j<boardW;j++){
       spaces[i][j]=[]
       spaces[i][j][0]=document.createElement("BUTTON");
       spaces[i][j][0].classList.add('gameButton');
@@ -58,12 +58,43 @@ function createBoard(){
       spaces[i][j][0].innerHTML=" "//spaces[i][j][1]
       spaces[i][j][0].style.width=(50/boardW)+"vh"
       spaces[i][j][0].style.height=(50/boardW)+"vh"
-      spaces[i][j][0].style.background='#FFFFFF'
+      spaces[i][j][0].style.background='#000000'
+      spaces[i][j][0].style.border="3px solid #DDDDDD"
+      spaces[i][j][0].style.borderRadius="8px"
       spaces[i][j][0].addEventListener("mouseover",function(){
         this.style.background = "#DDDDDD";
+        this.style.border ="3px solid #22EEEE"
+        height = this.id.split(",")[0]
+        width = this.id.split(",")[1]
+        console.log(height)
+        for (i=0;i<boardW;i++){
+          if (!(spaces[height][i][0].disabled)){
+            spaces[height][i][0].style.border ="3px solid #22BBBB"
+          }
+        }
+        for (i=0;i<boardH;i++){
+          if (!(spaces[i][width][0].disabled)){
+            spaces[i][width][0].style.border ="3px solid #22BBBB"
+          }
+        }
+
     });
     spaces[i][j][0].addEventListener("mouseout",function(){
-        this.style.background = "#ffFFFF";
+        this.style.background = "#000000";
+        this.style.border ="3px solid DDDDDD"
+        height = this.id.split(",")[0]
+        width = this.id.split(",")[1]
+        console.log(height)
+        for (i=0;i<boardW;i++){
+          if (!(spaces[height][i][0].disabled)){
+            spaces[height][i][0].style.border ="3px solid #DDDDDD"
+          }
+        }
+        for (i=0;i<boardH;i++){
+          if (!(spaces[i][width][0].disabled)){
+            spaces[i][width][0].style.border ="3px solid #DDDDDD"
+          }
+        }
     });
       var tableData = document.createElement("td")
       tableData.appendChild(spaces[i][j][0])
@@ -82,51 +113,59 @@ function createBoard(){
   $('.gameButton').on("mousedown", function(event){
     console.log(event.which)
     var clickedID = event.target.id
+    height = clickedID.split(",")[0]
+    width = clickedID.split(",")[1]
     for (i=0;i<boardW;i++){
-      for (j=0;j<boardH;j++){
-        if(clickedID==spaces[i][j][2]){
-          if(spaces[i][j][1]==1 && event.which==3){
-            spaces[i][j][0].innerHTML="X"
-            errors+=1
-          }else if (spaces[i][j][1]==0 && event.which==1){
-            spaces[i][j][0].innerHTML="X"
-            errors+=1
-          }else if(spaces[i][j][1]==1 && event.which==1){
-            spaces[i][j][0].innerHTML=""
-          }else if (spaces[i][j][1]==0 && event.which==3){
-            spaces[i][j][0].innerHTML=""
-          }
-          if (spaces[i][j][1]==1){
-            spaces[i][j][0].style.background='#22EEEE'
-            spaces[i][j][0].disabled=true
-            numClicked+=1
-          }else if (spaces[i][j][1]==0){
-            spaces[i][j][0].style.background='#EEEEEE'
-            spaces[i][j][0].disabled=true
-            numClicked+=1
-          }
-          progressStat.innerHTML=Math.round((numClicked*100)/(boardW*boardH))+"% Complete"
-          errorStat.innerHTML = errors+" Error(s)"
-          if (numClicked==boardH*boardW){
-            document.getElementById("Title").innerHTML="CONGRATULATIONS!"
-            setTimeout(function() {
-              document.getElementById("Title").innerHTML="YOU"
-              setTimeout(function() {
-                document.getElementById("Title").innerHTML="YOU ARE"
-                setTimeout(function() {
-                  document.getElementById("Title").innerHTML="YOU ARE A"
-                  setTimeout(function() {
-                    document.getElementById("Title").innerHTML="YOU ARE A WINNER"
-                    setTimeout(function() {
-                      document.getElementById("Title").innerHTML="YOU ARE A WINNER!!!!!!!!!!"
-                    }, 1000);
-                  }, 1000);
-                }, 1000);
-              }, 1000);
-            }, 1250);
-          }
-        }
+      if (!(spaces[height][i][0].disabled)){
+        spaces[height][i][0].style.border ="3px solid #DDDDDD"
       }
+    }
+    for (i=0;i<boardH;i++){
+      if (!(spaces[i][width][0].disabled)){
+        spaces[i][width][0].style.border ="3px solid #DDDDDD"
+      }
+    }
+    if(spaces[height][width][1]==1 && event.which==3){
+      spaces[height][width][0].innerHTML="X"
+      errors+=1
+    }else if (spaces[height][width][1]==0 && event.which==1){
+      spaces[height][width][0].innerHTML="X"
+      errors+=1
+    }else if(spaces[height][width][1]==1 && event.which==1){
+      spaces[height][width][0].innerHTML=""
+    }else if (spaces[height][width][1]==0 && event.which==3){
+      spaces[height][width][0].innerHTML=""
+    }
+    if (spaces[height][width][1]==1){
+      spaces[height][width][0].style.background='#22EEEE'
+      spaces[height][width][0].style.border ="3px solid #22EEEE"
+      spaces[height][width][0].disabled=true
+      numClicked+=1
+    }else if (spaces[height][width][1]==0){
+      spaces[height][width][0].style.background='#BBBBBB'
+      spaces[height][width][0].style.border ="3px solid #BBBBBB"
+      spaces[height][width][0].disabled=true
+      numClicked+=1
+    }
+    progressStat.innerHTML=Math.round((numClicked*100)/(boardW*boardH))+"% Complete"
+    errorStat.innerHTML = errors+" Error(s)"
+    if (numClicked==boardH*boardW){
+      document.getElementById("Title").innerHTML="CONGRATULATIONS!"
+      setTimeout(function() {
+        document.getElementById("Title").innerHTML="YOU"
+        setTimeout(function() {
+          document.getElementById("Title").innerHTML="YOU ARE"
+          setTimeout(function() {
+            document.getElementById("Title").innerHTML="YOU ARE A"
+            setTimeout(function() {
+              document.getElementById("Title").innerHTML="YOU ARE A WINNER"
+              setTimeout(function() {
+                document.getElementById("Title").innerHTML="YOU ARE A WINNER!!!!!!!!!!"
+              }, 1000);
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      }, 1250);
     }
     console.log(event.target.id)
     if (event.which==1){
@@ -141,9 +180,9 @@ function createBoard(){
 
 function setHvalues(){
   curCount=0
-  for (var i=0;i<boardH;i++){
+  for (var i=0;i<boardW;i++){
     counts = ""
-    for (var j=0;j<boardW;j++){
+    for (var j=0;j<boardH;j++){
       if (spaces[j][i][1]>0){
         curCount+=1
       }else{
@@ -162,9 +201,9 @@ function setHvalues(){
 }
 function setVvalues(){
   var curCount=0
-  for (var i=0;i<boardW;i++){
+  for (var i=0;i<boardH;i++){
     var counts = ""
-    for (var j=0;j<boardH;j++){
+    for (var j=0;j<boardW;j++){
       if (spaces[i][j][1]>0){
         curCount+=1
       }else{
