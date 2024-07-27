@@ -1,0 +1,35 @@
+button{
+  width:20vh;
+  height:6vh;
+  font-size: 1.5em;
+}
+
+div {
+  width:560px
+}
+
+input {
+  font-size: 1.5em;
+  width: 10vh;
+  height: 5vh;
+  margin-right: 1vh;
+}
+
+table {
+  text-align:center;
+  font-weight: 400;
+  font-size: 1.3em;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+#game {
+  height: 60vh
+}
+#game button {
+  font-size: 1.2em;
+  color: black;
+}
